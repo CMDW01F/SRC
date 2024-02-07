@@ -29,10 +29,10 @@ local enchatSettings = {
 	useSkynet = true,
 	extraNewline = true,
 	acceptPictoChat = true,
-	noRepeatNames = false,
+	noRepeatNames = true,
 }
 
--- colors for various elements
+-- Farben
 palette = {
 	bg = colors.black,
 	txt = colors.white,
@@ -44,7 +44,7 @@ palette = {
 	titlebg = colors.gray,
 }
 
--- UI adjustments, used to emulate the appearance of other chat programs
+-- UI Anpassungen
 UIconf = {
 	promptY = 1,
 	chevron = ">",
@@ -58,7 +58,7 @@ UIconf = {
 	suffix = "> "
 }
 
--- Attempt to get some slight optimization through localizing basic functions.
+-- Optimierung
 local mathmax, mathmin, mathrandom = math.max, math.min, math.random
 local termblit, termwrite = term.blit, term.write
 local termsetCursorPos, termgetCursorPos, termsetCursorBlink = term.setCursorPos, term.getCursorPos, term.setCursorBlink
@@ -69,7 +69,6 @@ local tableinsert, tableremove, tableconcat = table.insert, table.remove, table.
 local textutilsserialize, textutilsunserialize = textutils.serialize, textutils.unserialize
 local stringsub, stringgsub, stringrep = string.sub, string.gsub, string.rep
 local unpack = unpack
--- This better do something.
 
 local initcolors = {
 	bg = termgetBackgroundColor(),
@@ -125,20 +124,18 @@ local updateEnchat = function(doBeta)
 	local pPath = shell.getRunningProgram()
 	local h = http.get((doBeta or enchat.isBeta) and enchat.betaurl or enchat.url)
 	if not h then
-		return false, "Could not connect."
+		return false, "Konnte keine Verbindung herstellen."
 	else
 		local content = h.readAll()
 		local file = fs.open(pPath, "w")
 		file.write(content)
 		file.close()
-		return true, "Updated!"
+		return true, "Aktualisiert!"
 	end
 end
 
--- disables chat screen updating
 local pauseRendering = true
 
--- primarily for use when using the pallete command, hoh hoh
 local colors_strnames = {
 	["white"] = colors.white,
 	["pearl"] = colors.white,
@@ -276,13 +273,12 @@ for k,v in pairs(toblit) do
 end
 
 local codeNames = {
-	["r"] = "reset",		-- Sets either the text (&) or background (~) colors to their original color.
-	["{"] = "stopFormatting",	-- Toggles formatting text off
-	["}"] = "startFormatting",	-- Toggles formatting text on
-	["k"] = "krazy"			-- Makes the font kuh-razy!
+	["r"] = "reset",
+	["{"] = "stopFormatting",
+	["}"] = "startFormatting",
+	["k"] = "krazy"
 }
 
--- indicates which character should turn into which random &k character
 local kraziez = {
 	["l"] = {
 		"!",
@@ -317,7 +313,6 @@ for k,v in pairs(kraziez) do
 	end
 end
 
--- check if using older CC version, and omit special characters if it's too old to avoid crash
 if tonumber(_CC_VERSION or 0) >= 1.76 then
 	for a = 1, 255 do
 		if (a ~= 32) and (a ~= 13) and (a ~= 10) then
@@ -361,7 +356,6 @@ local parseKrazy = function(c)
 	end
 end
 
--- my main man, the function that turns unformatted strings into formatted strings
 local textToBlit = function(input, onlyString, initText, initBack, checkPos, useJSONformat)
 	if not input then return end
 	checkPos = checkPos or -1
@@ -543,8 +537,6 @@ local textToBlit = function(input, onlyString, initText, initBack, checkPos, use
 end
 _G.textToBlit = textToBlit
 
--- convoluted read function that renders color codes as they are written.
--- struggles with \123 codes, but hey, fuck you
 local colorRead = function(maxLength, _history)
 	local output = ""
 	local history, _history = {}, _history or {}
@@ -719,7 +711,7 @@ end
 
 -- execution start!
 
-if not checkValidName(yourName) then -- not so fast, evildoers
+if not checkValidName(yourName) then
 	yourName = nil
 end
 
@@ -730,13 +722,13 @@ if not (yourName and encKey) then
 end
 
 if not yourName then
-    cfwrite("&8~7Text = &, Background = ~", scr_y-3)
+    cfwrite("&8~7Text = &, Hintergrund = ~", scr_y-3)
 	cfwrite("&8~7&{Krazy = &k, Reset = &r", scr_y-2)
     cfwrite("&7~00~11~22~33~44~55~66&8~77&7~88~99~aa~bb~cc~dd~ee~ff", scr_y-1)
-	yourName = prettyPrompt("Enter your name.", currentY, nil, true)
+	yourName = prettyPrompt("BENUTZERNAME", currentY, nil, true)
 	if not checkValidName(yourName) then
 		while true do
-			yourName = prettyPrompt("That name isn't valid. Enter another.", currentY, nil, true)
+			yourName = prettyPrompt("Versuchen sie es mit einem anderem Namen", currentY, nil, true)
 			if checkValidName(yourName) then
 				break
 			end
@@ -746,11 +738,10 @@ if not yourName then
 end
 
 if not encKey then
-	setEncKey(prettyPrompt("Enter an encryption key.", currentY, "*"))
+	setEncKey(prettyPrompt("SICHERHEITSCODE", currentY, "*"))
 	currentY = currentY + 3
 end
 
--- prevents terminating. it is reversed upon exit.
 local oldePullEvent = os.pullEvent
 os.pullEvent = os.pullEventRaw
 

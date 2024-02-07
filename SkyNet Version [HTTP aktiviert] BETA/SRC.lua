@@ -1536,7 +1536,7 @@ commands.about = function()
 	if srcSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd(nil,"SecuredRadioCom von [REDACTED]")
+	logadd(nil,"SecuredRadioCom"..enchat.version.."von [REDACTED]")
 	logadd(nil,"Gesichertes und Dezentralisiertes Netzwerk")
 	logadd(nil,nil)
 	logadd(nil,"AES Lua Impl. von SquidDev")

@@ -1541,14 +1541,14 @@ commands.about = function()
 		logadd(nil,nil)
 	end
 	logadd(nil,"SRC "..enchat.version.." von [REDACTED]")
-	logadd(nil,"'Gesichertes und Dezentralisiertes Netzwerk'")
+	logadd(nil,"Gesichertes und Dezentralisiertes Netzwerk")
 	logadd(nil,"SecuredRadioCom")
 	logadd(nil,nil)
 	logadd(nil,"AES Lua Impl. von SquidDev")
 	logadd(nil,"HTTP 'Skynet' von gollark (osmarks)")
 end
 commands.exit = function()
-	enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet")
+	enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet.")
 	return "exit"
 end
 commands.me = function(msg)
@@ -1697,7 +1697,7 @@ commands.key = function(newKey)
 	end
 	if newKey then
 		if newKey ~= encKey then
-			enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet")
+			enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet.")
 			setEncKey(newKey)
 			logadd("*", "Key changed to '"..encKey.."&}&r~r'.")
 			enchatSend("*", "'"..yourName.."&}&r~r' hat sich eingeloggt.", {omitPersonalID = true})
@@ -2422,7 +2422,7 @@ if canvas then
 	canvas.clear()
 end
 
-tsv(true) -- in case it's false, y'know
+tsv(true)
 
 if not res then
 	prettyClearScreen(1,scr_y-1)

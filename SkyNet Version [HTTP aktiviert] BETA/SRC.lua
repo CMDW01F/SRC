@@ -49,7 +49,7 @@ UIconf = {
 	promptY = 1,
 	chevron = ">",
 	chatlogTop = 1,
-	title = "SecuredRadioCom",
+	title = "SecureRadioCom",
 	doTitle = false,
 	titleY = 1,
 	nameDecolor = false,
@@ -1536,7 +1536,7 @@ commands.about = function()
 	if srcSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd(nil,"SecuredRadioCom"..enchat.version.."von [REDACTED]")
+	logadd(nil,"SecureRadioCom"..enchat.version.."von [REDACTED]")
 	logadd(nil,"Gesichertes und Dezentralisiertes Netzwerk")
 	logadd(nil,nil)
 	logadd(nil,"AES Lua Impl. von SquidDev")

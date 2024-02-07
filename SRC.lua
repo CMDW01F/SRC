@@ -4,7 +4,7 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = true,
-	version = 3.0,
+	version = 0.3,
 	isBeta = true,
 	port = 11000,
 	skynetPort = "secured-communication",
@@ -789,7 +789,7 @@ end
 local skynet, aes, bigfont
 aes = getAPI("AES", "aes", "http://pastebin.com/raw/9E5UHiqv", false, false)
 if src.connectToSkynet and http.websocket then
-	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/CMDW01F/Netzwerk/System/SkyNet.lua", true, true)
+	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/CMDW01F/API/System/Netzwerk/SkyNet.lua", true, true)
 end
 bigfont = getAPI("BigFont", "bigfont", "https://pastebin.com/raw/3LfWxRWh", false, true)
 

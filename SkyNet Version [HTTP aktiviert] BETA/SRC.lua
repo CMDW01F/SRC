@@ -4,8 +4,8 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = true,
-	version = "0.A.3 BETA",
-	isBeta = true,
+	version = "1.A.0",
+	isBeta = false,
 	port = 11000,
 	skynetPort = "secured-communication",
 	url = "https://raw.githubusercontent.com/CMDW01F/SRC/System/SkyNet%20Version%20%5BHTTP%20aktiviert%5D/SRC.lua",
@@ -1532,11 +1532,11 @@ local commands = {}
 local simmableCommands = {
 	big = true
 }
-commands.about = function()
+commands.info = function()
 	if srcSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd(nil,"SecureRadioCom"..enchat.version.."von [REDACTED]")
+	logadd(nil,"SecureRadioCom v."..src.version.." von [REDACTED]")
 	logadd(nil,"Gesichertes und Dezentralisiertes Netzwerk")
 	logadd(nil,nil)
 	logadd(nil,"AES Lua Impl. von SquidDev")
@@ -2074,24 +2074,24 @@ commands.help = function(cmdname)
 	end
 	if cmdname then
 		local helpList = {
-			exit = "Exits src and returns to loader (most likely CraftOS)",
-			about = "Tells you a bit about this here src.",
-			me = "Sends a message in the format of \"* yourName message\"",
-			colors = "Lists all the colors you can use.",
-			update = "Updates and overwrites src, then exits if successful.",
-			list = "Lists all users in range using the same key.",
-			nick = "Give yourself a different username.",
-			whoami = "Tells you your current username.",
-			key = "Change the current encryption key. Tells you the key, if without argument.",
-			clear = "Clears the local chat log. Not your inventory, I swear.",
-			ping = "Pong. *sigh*",
-			shrug = "Sends out a shrugging emoticon.",
-			set = "Changes config options during the current session. Lists all options, if without argument.",
-			msg = "Sends a message that is only logged by a specific user.",
-			picto = "Opens an image maker and sends the result. Use the scroll wheel to change color, and hold left shift to change text color. If argument given, will look for an image at the given path and use that instead.",
-			tron = "Starts up a game of TRON.",
-			big = "Sends your message, but enlarged by a specified amount via Wojbie's BigFont API.",
-			help = "Shows every command, or describes a specific command.",
+			exit = "Beendet SRC",
+			info = "SRC Informationen wie Version, Autor, etc.",
+			me = "Sendet eine Nachricht im Format \"* deinName Nachricht\"",
+			colors = "Listet alle Farben auf, die du verwenden kannst.",
+			update = "Aktualisiert SRC und beendet es bei Erfolg.",
+			list = "Listet alle Benutzer im Bereich auf, die denselben Sicherheitscode verwenden.",
+			nick = "Gibt dir einen anderen Benutzernamen.",
+			whoami = "Zeigt Ihnen Ihren aktuellen Benutzernamen an.",
+			key = "Wechselt den aktuellen Sicherheitscode. Sagt Ihnen den Code, wenn ohne Argument.",
+			clear = "Reinigt das lokale Chatprotokoll.",
+			ping = "Pong.",
+			shrug = "Sendet ein Achselzucken-Emoticon.",
+			set = "Wechselt Konfigurationsoptionen der aktuellen Sitzung. Listet alle Optionen auf, sofern keine Argumente vorhanden sind.",
+			msg = "Sendet eine Nachricht, die nur von einem bestimmten Benutzer protokolliert wird.",
+			picto = "Zeigt einen Image Maker und sendet das Ergebnis.",
+			tron = "Startet eine TRON-Partie.",
+			big = "Sendet Ihre Nachricht, jedoch erweitert um einen bestimmten Betrag über die BigFont-API.",
+			help = "Zeigt jeden Befehl an oder beschreibt einen bestimmten Befehl.",
 		}
 		cmdname = cmdname:gsub(" ",""):gsub("/","")
 		if helpList[cmdname] then
@@ -2313,17 +2313,17 @@ local handleEvents = function()
 					logadd(nil,nil)
 				end
 				if evt[2] == "win" then
-					srcSend("*", yourName .. "&}&r~r schlug " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", yourName .. "&}&r~r schlug " .. (evt[4] or "Jemand") .. "&}&r~r in TRON!", {doLog = true})
 				elseif evt[2] == "lose" then
-					srcSend("*", (evt[4] or "Someone") .. "&}&r~r schlug " .. yourName .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", (evt[4] or "Jemand") .. "&}&r~r schlug " .. yourName .. "&}&r~r in TRON!", {doLog = true})
 				elseif evt[2] == "tie" then
-					srcSend("*", yourName .. "&}&r~r unentschieden mit " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", yourName .. "&}&r~r unentschieden mit " .. (evt[4] or "Jemand") .. "&}&r~r in TRON!", {doLog = true})
 				end
 			elseif evt[2] == "timeout" then
 				if srcSettings.extraNewline then
 					logadd(nil,nil)
 				end
-				srcSend("*", yourName .. "&}&r~r verlierte gegen " .. (evt[4] or "someone") .. "&}&r~r in TRON...", {doLog = true})
+				srcSend("*", yourName .. "&}&r~r verlierte gegen " .. (evt[4] or "Jemand") .. "&}&r~r in TRON...", {doLog = true})
 			end
 		elseif evt[1] == "terminate" then
 			return "exit"
@@ -2399,9 +2399,6 @@ if not res then
 	termsetTextColor(colors.white)
 	termsetBackgroundColor(colors.gray)
 	cwrite("Kritischer Fehler...",2)
-	cfwrite("Analysiert und Protokolliert...",3)
-	cwrite("Sende Log Bericht an [REDACTED]...",4)
-	cwrite("Senden Fehlgeschlagen",5)
 	termsetCursorPos(1,7)
 	printError(outcome)
 	termsetTextColor(colors.lightGray)

@@ -787,10 +787,9 @@ local getAPI = function(apiname, apipath, apiurl, doDoFile, doScroll)
 end
 
 local skynet, aes, bigfont
--- _G.skynet_CBOR_path = fs.combine(src.dataDir,"/api/cbor")
 aes = getAPI("AES", "aes", "http://pastebin.com/raw/9E5UHiqv", false, false)
 if src.connectToSkynet and http.websocket then
-	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/LDDestroier/CC/master/API/skynet.lua", true, true)
+	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/CMDW01F/Netzwerk/System/SkyNet.lua", true, true)
 end
 bigfont = getAPI("BigFont", "bigfont", "https://pastebin.com/raw/3LfWxRWh", false, true)
 

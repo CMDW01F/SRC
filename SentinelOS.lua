@@ -1,7 +1,15 @@
+--[[
+ Enchat 3.0
+ Get with:
+  wget https://github.com/LDDestroier/enchat/raw/master/enchat3.lua enchat3.lua
+
+This is a stable release. You fool!
+--]]
+
 local scr_x, scr_y = term.getSize()
 CHATBOX_SAFEMODE = nil
 
--- Technische Einstellungen [FORTSCHRITTLICH // NICHT ANFASSEN]
+-- non-changable settings
 enchat = {
 	connectToSkynet = true,
 	version = 3.0,
@@ -16,20 +24,20 @@ enchat = {
 	disableChatboxWithRedstone = false,
 }
 
--- Anpassbare Einstellungen
-local enchatSettings = {
-	animDiv = 4,
-	doAnimate = true,
-	reverseScroll = false,
-	redrawDelay = 0.1,
-	useSetVisible = false,
-	pageKeySpeed = 8,
-	doNotif = true,
-	doKrazy = true,
-	useSkynet = true,
-	extraNewline = true,
-	acceptPictoChat = true,
-	noRepeatNames = true,
+-- changable settings
+local enchatSettings = {	-- DEFAULT settings.
+	animDiv = 4,			-- divisor of text animation speed (scrolling from left)
+	doAnimate = true,		-- whether or not to animate text moving from left side of screen
+	reverseScroll = false,	-- whether or not to make scrolling up really scroll down
+	redrawDelay = 0.1,		-- delay between redrawing
+	useSetVisible = false,	-- whether or not to use term.current().setVisible(), which has performance and flickering improvements
+	pageKeySpeed = 8,		-- how far PageUP or PageDOWN should scroll
+	doNotif = true,			-- whether or not to use oveerlay glasses for notifications, if possible
+	doKrazy = true,			-- whether or not to add &k obfuscation
+	useSkynet = true,		-- whether or not to use gollark's Skynet in addition to modem calls
+	extraNewline = true,	-- adds an extra newline after every message since setting to true
+	acceptPictoChat = true,	-- whether or not to allow tablular enchat input, which is what /picto uses
+	noRepeatNames = true,	-- whether or not to display the username in two or more consecutive messages by the same user
 }
 
 -- colors for various elements

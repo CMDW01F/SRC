@@ -58,7 +58,6 @@ UIconf = {
 	suffix = "> "
 }
 
--- Optimierung
 local mathmax, mathmin, mathrandom = math.max, math.min, math.random
 local termblit, termwrite = term.blit, term.write
 local termsetCursorPos, termgetCursorPos, termsetCursorBlink = term.setCursorPos, term.getCursorPos, term.setCursorBlink
@@ -798,7 +797,7 @@ end
 bigfont = getAPI("BigFont", "bigfont", "https://pastebin.com/raw/3LfWxRWh", false, true)
 
 if encKey and skynet and enchat.connectToSkynet then
-	bottomMessage("Connecting to Skynet...")
+	bottomMessage("Verbinde mit SkyNet...")
 	local success = parallel.waitForAny(
 		function()
 			skynet.open(enchat.skynetPort)
@@ -809,15 +808,15 @@ if encKey and skynet and enchat.connectToSkynet then
 	)
 	if success == 2 then
 		term.scroll(1)
-		bottomMessage("Failed to connect to skynet.")
+		bottomMessage("Es konnte keine Verbindung zum SkyNet hergestellt werden.")
 		skynet = nil
 		sleep(0.5)
 	end
 end
 
-local log = {} 			-- Records all sorts of data on text.
-local renderlog = {} 	-- Only records straight terminal output. Generated from 'log'
-local IDlog = {} 		-- Really only used with skynet, will prevent duplicate messages.
+local log = {}
+local renderlog = {}
+local IDlog = {}
 
 local scroll = 0
 local maxScroll = 0
@@ -833,8 +832,7 @@ end
 
 local getChatbox = function()
 	if enchat.useChatbox then
-		if commands then -- oh baby, a command computer, now we're talkin'
-			-- mind you, you still need a chatbox to get chat input...
+		if commands then
 			return {
 				say = function(text)
 					commands.tellraw("@a", textToBlit(text, false, "0", "f", nil, true))
@@ -846,13 +844,13 @@ local getChatbox = function()
 		else
 			local cb = chatbox or peripheral.find("chat_box")
 			if cb then
-				if cb.setName then -- Computronics
+				if cb.setName then
 					cb.setName(yourName)
 					return {
 						say = cb.say,
-						tell = cb.say -- why is there no tell command???
+						tell = cb.say
 					}
-				else -- whatever whackjob mod SwitchCraft uses I forget
+				else
 					return {
 						say = function(text, block)
 							if CHATBOX_SAFEMODE then
@@ -888,7 +886,7 @@ if (not modem) and (not enchat.ignoreModem) then
 		ccemux.attach("top", "wireless_modem")
 		modem = getModem()
 	elseif not skynet then
-		error("You should get a modem.")
+		error("Kein Modem verbunden.")
 	end
 end
 
@@ -900,17 +898,17 @@ local modemTransmit = function(freq, repfreq, message)
 	end
 end
 
-local encrite = function(input) -- standardized encryption function
+local encrite = function(input)
 	if not input then return input end
 	return aes.encrypt(encKey, textutilsserialize(input))
 end
 
-local decrite = function(input) -- redundant comments cause tuberculosis
+local decrite = function(input)
 	if not input then return input end
 	return textutilsunserialize(aes.decrypt(encKey, input) or "")
 end
 
-local dab = function(func, ...) -- "do and back", not...never mind
+local dab = function(func, ...)
 	local x, y = termgetCursorPos()
 	local b, t = termgetBackgroundColor(), termgetTextColor()
 	local output = {func(...)}
@@ -939,8 +937,7 @@ local splitStrTbl = function(tbl, maxLength)
 	return output
 end
 
--- same as term.blit, but wraps by-word.
-local blitWrap = function(char, text, back, noWrite) -- where ALL of the onscreen wrapping is done
+local blitWrap = function(char, text, back, noWrite)
 	local cWords = splitStrTbl(explode(" ",char,nil, true), scr_x)
 	local tWords = splitStrTbl(explode(" ",char,text,true), scr_x)
 	local bWords = splitStrTbl(explode(" ",char,back,true), scr_x)
@@ -975,7 +972,6 @@ local blitWrap = function(char, text, back, noWrite) -- where ALL of the onscree
 	return output, maxLength
 end
 
--- simple picture drawing function, for /picto
 local pictochat = function(xsize, ysize)
 	local output = {{},{},{}}
 	local maxWidth, minMargin = 0, math.huge
@@ -1117,8 +1113,6 @@ local pictochat = function(xsize, ysize)
 	end
 end
 
--- notifications will only appear if you have plethora's neural connector and overlay glasses on your person
-
 local notif = {}
 notif.alpha = 248
 notif.height = 10
@@ -1154,7 +1148,7 @@ if interface then
 			if #nList > notif.maxNotifs then
 				tableremove(nList, 1)
 			end
-			nList[#nList+1] = {char,text,back,time,1} -- the last one is the alpha multiplier
+			nList[#nList+1] = {char,text,back,time,1}
 		end
 		notif.displayNotifications = function(doCountDown)
 			local adjList = {
@@ -1268,7 +1262,6 @@ local darkerCols = {
 	["f"] = "f"
 }
 
--- used for regular chat. they can be disabled if you hate fun
 local animations = {
 	slideFromLeft = function(char, text, back, frame, maxFrame, length)
 		return {
@@ -1278,8 +1271,6 @@ local animations = {
 		}
 	end,
 	fadeIn = function(char, text, back, frame, maxFrame, length)
-		-- a good example:
-		-- &1what &2in &3the &4world &5are &6you &7doing &8in &9my &aswamp
 		for i = 1, 3 - math.ceil(frame/maxFrame * 3) do
 			text = stringgsub(text, ".", darkerCols)
 		end
@@ -1370,9 +1361,7 @@ local genRenderLog = function()
 			else
 				buff, maxLength = blitWrap(prebuff[1], prebuff[2], prebuff[3], true)
 			end
-			-- repeat every line in multiline entries
 			for l = 1, #buff do
-				-- holy shit, two animations, lookit mr. roxas over here
 				if log[a].animType then
 					renderlog[#renderlog + 1] = inAnimate(log[a].animType, buff[l], log[a].frame, log[a].maxFrame, maxLength)
 				else
@@ -1392,7 +1381,6 @@ local genRenderLog = function()
 	end
 end
 
--- there is probably a much better way of doing this, but I don't care at the moment
 local tsv = function(visible)
 	if term.current().setVisible and enchatSettings.useSetVisible then
 		return term.current().setVisible(visible)
@@ -1512,9 +1500,9 @@ local cryOut = function(name, crying)
 	enchatSend(name, nil, {crying = crying})
 end
 
-local getPictureFile = function(path) -- ONLY NFP or NFT, fuck BLT
+local getPictureFile = function(path)
 	if not fs.exists(path) then
-		return false, "No such image."
+		return false, "Bild nicht gefunden."
 	else
 		local file = fs.open(path,"r")
 		local content = file.readAll()
@@ -1524,7 +1512,7 @@ local getPictureFile = function(path) -- ONLY NFP or NFT, fuck BLT
 			output = explode("\n",content:gsub("\31","&"):gsub("\30","~"),nil,false)
 		else
 			if content:lower():gsub("[0123456789abcdef\n ]","") ~= "" then
-				return false, "Invalid image."
+				return false, "Kein Bild."
 			else
 				output = explode("\n",content:gsub("[^\n]","~%1 "),nil,false)
 			end
@@ -1548,21 +1536,19 @@ local commands = {}
 local simmableCommands = {
 	big = true
 }
--- Commands only have one argument, being a single string.
--- Separate arguments can be extrapolated with the explode() function.
 commands.about = function()
 	if enchatSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd(nil,"Enchat "..enchat.version.." by LDDestroier.")
-	logadd(nil,"'Encrypted, decentralized, &1c&2o&3l&4o&5r&6i&7z&8e&9d&r chat program'")
-	logadd(nil,"Made in 2018, out of gum and procrastination.")
+	logadd(nil,"SRC "..enchat.version.." von [REDACTED]")
+	logadd(nil,"'Gesichertes und Dezentralisiertes Netzwerk'")
+	logadd(nil,"SecuredRadioCom")
 	logadd(nil,nil)
-	logadd(nil,"AES Lua implementation made by SquidDev.")
-	logadd(nil,"'Skynet' (enables HTTP chat) belongs to gollark (osmarks).")
+	logadd(nil,"AES Lua Impl. von SquidDev")
+	logadd(nil,"HTTP 'Skynet' von gollark (osmarks)")
 end
 commands.exit = function()
-	enchatSend("*", "'"..yourName.."&}&r~r' buggered off. (disconnect)")
+	enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet")
 	return "exit"
 end
 commands.me = function(msg)
@@ -1579,12 +1565,12 @@ commands.tron = function()
   local url = "https://raw.githubusercontent.com/LDDestroier/CC/master/tron.lua"
   local prog, contents = http.get(url)
   if prog then
-    enchatSend("*", yourName .. "&}&r~r has started a game of TRON.", {doLog = true})
+    enchatSend("*", yourName .. "&}&r~r hat eine Partie TRON gestartet.", {doLog = true})
     contents = prog.readAll()
     pauseRendering = true
     prog = load(contents, nil, nil, _ENV)(enchatSettings.useSkynet and "skynet", "quick", yourName)
   else
-    logadd("*", "Could not download TRON.")
+    logadd("*", "TRON konnte nicht heruntergeladen werden.")
   end
   pauseRendering = false
   doRender = true
@@ -1601,7 +1587,7 @@ end
 commands.update = function()
 	local res, message = updateEnchat()
 	if res then
-		enchatSend("*", yourName.."&}&r~r has updated and exited.")
+		enchatSend("*", yourName.."&}&r~r wurde aktualisiert und beendet.")
 		termsetBackgroundColor(colors.black)
 		termsetTextColor(colors.white)
 		termclear()
@@ -1679,16 +1665,16 @@ commands.nick = function(newName)
 	if newName then
 		if checkValidName(newName) then
 			if newName == yourName then
-				logadd("*","But you're already called that!")
+				logadd("*","Du hast bereits diesen Benutzernamen.")
 			else
-				enchatSend("*", "'"..yourName.."&}&r~r' is now known as '"..newName.."&}&r~r'.", {doLog = true})
+				enchatSend("*", "'"..yourName.."&}&r~r' ist jetzt bekannt als '"..newName.."&}&r~r'.", {doLog = true})
 				yourName = newName
 			end
 		else
 			if #newName < 2 then
-				logadd("*", "That name is too damned small.")
+				logadd("*", "Zu Kurz.")
 			elseif #newName > 32 then
-				logadd("*", "Woah there, that name is too large.")
+				logadd("*", "Zu Lang.")
 			end
 		end
 	else
@@ -1700,9 +1686,9 @@ commands.whoami = function(now)
 		logadd(nil,nil)
 	end
 	if now == "now" then
-		logadd("*","You are still '"..yourName.."&}&r~r'!")
+		logadd("*","Du bist immer noch '"..yourName.."&}&r~r'!")
 	else
-		logadd("*","You are '"..yourName.."&}&r~r'!")
+		logadd("*","Du bist '"..yourName.."&}&r~r'!")
 	end
 end
 commands.key = function(newKey)
@@ -1711,16 +1697,16 @@ commands.key = function(newKey)
 	end
 	if newKey then
 		if newKey ~= encKey then
-			enchatSend("*", "'"..yourName.."&}&r~r' buggered off. (keychange)")
+			enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet")
 			setEncKey(newKey)
 			logadd("*", "Key changed to '"..encKey.."&}&r~r'.")
-			enchatSend("*", "'"..yourName.."&}&r~r' has moseyed on over.", {omitPersonalID = true})
+			enchatSend("*", "'"..yourName.."&}&r~r' hat sich eingeloggt.", {omitPersonalID = true})
 		else
-			logadd("*", "That's already the key, though.")
+			logadd("*", "Taste bereits zugewiesen")
 		end
 	else
-		logadd("*","Key = '"..encKey.."&}&r~r'")
-		logadd("*","Channel = '"..enchat.port.."'")
+		logadd("*","Sicherheitscode = '"..encKey.."&}&r~r'")
+		logadd("*","Kanal = '"..enchat.port.."'")
 	end
 end
 commands.shrug = function(face)
@@ -1735,7 +1721,7 @@ commands.asay = function(_argument)
 		logadd(nil,nil)
 	end
 	if not sPoint then
-		logadd("*","Animation types:")
+		logadd("*","Animation:")
 		for k,v in pairs(animations) do
 			logadd(nil," '"..k.."'")
 		end
@@ -1750,10 +1736,10 @@ commands.asay = function(_argument)
 			if textToBlit(message,true):gsub(" ","") ~= "" then
 				enchatSend(yourName, message, {doLog = true, animType = animType, maxFrame = animFrameMod[animType]})
 			else
-				logadd("*","That message is no good.")
+				logadd("*","Nachricht wurde abgelehnt.")
 			end
 		else
-			logadd("*","Invalid animation type.")
+			logadd("*","Animation nicht gefunden.")
 		end
 	end
 end
@@ -1768,9 +1754,9 @@ commands.big = function(_argument, simUser)
 		local fontSize = tonumber(_argument:sub(1,sPoint-1))
 		local message = _argument:sub(sPoint+1)
 		if not fontSize then
-			logadd("*","Size must be number between 0 and 2.")
+			logadd("*","Muss eine Nummer zwischen 0 und 2 sein.")
 		elseif fontSize < 0 or fontSize > 2 then
-			logadd("*","Size must be number between 0 and 2.")
+			logadd("*","Muss eine Nummer zwischen 0 und 2 sein.")
 		else
 			fontSize = math.floor(.5+fontSize)
 			local tOutput
@@ -1829,10 +1815,10 @@ commands.msg = function(_argument)
 		local recipient = _argument:sub(1,sPoint-1)
                 local message = _argument:sub(sPoint+1)
 		if not message then
-			logadd("*","You got half of the arguments down pat, at least.")
+			logadd("*","Nicht alle Argumente korrekt.")
 		else
 			if textToBlit(message,true):gsub(" ","") == "" then
-				logadd("*","That message is no good.")
+				logadd("*","Nachricht wurde abgelehnt.")
 			else
 				enchatSend(yourName, message, {recipient = recipient})
 				logadd("*","to '"..recipient.."': "..message)
@@ -1870,7 +1856,7 @@ commands.palette = function(_argument)
 					promptY = 1,
 					chevron = ">",
 					chatlogTop = 1,
-					title = "Enchat 3",
+					title = "SecureRadioCom",
 					doTitle = false,
 					titleY = 1,
 					nameDecolor = false,
@@ -1880,7 +1866,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","You cleansed your palette.")
+				logadd("*","Du hast deine Palette gereinigt.")
 				saveSettings()
 			elseif argument[1]:gsub("%s",""):lower() == "enchat2" then
 				palette = {
@@ -1897,7 +1883,7 @@ commands.palette = function(_argument)
 					promptY = 1,
 					chevron = ">",
 					chatlogTop = 1,
-					title = "Enchat 2",
+					title = "SecureRadioCom Alternativ",
 					doTitle = false,
 					titleY = 1,
 					nameDecolor = false,
@@ -1928,7 +1914,7 @@ commands.palette = function(_argument)
 					promptY = 0,
 					chevron = ": ",
 					chatlogTop = 2,
-					title = "YOURNAME on ENCKEY",
+					title = "YOURNAME auf ENCKEY",
 					doTitle = true,
 					titleY = 1,
 					nameDecolor = true,
@@ -1938,7 +1924,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Switched to /rom/programs/rednet/chat.lua palette.")
+				logadd("*","Gewechselt zu /rom/programs/rednet/chat.lua palette.")
 				saveSettings()
 			elseif argument[1]:gsub("%s",""):lower() == "talk" then
 				palette = {
@@ -1955,7 +1941,7 @@ commands.palette = function(_argument)
 					promptY = 0,
 					chevron = "",
 					chatlogTop = 1,
-					title = " enchat v3.0     channel: ENCKEY:PORT",
+					title = " SecureRadioCom    Kannal: ENCKEY:PORT",
 					titleY = scr_y - 1,
 					doTitle = true,
 					nameDecolor = false,
@@ -1965,7 +1951,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Switched to Talk palette.")
+				logadd("*","Zur TalkSRC-Palette gewechselt.")
 				saveSettings()
 			elseif argument[1]:gsub("%s",""):lower() == "darkchat" then
 				palette = {
@@ -1980,9 +1966,9 @@ commands.palette = function(_argument)
 				}
 				UIconf = {
 					promptY = 0,
-					chevron = "Message: ",
+					chevron = "Nachricht: ",
 					chatlogTop = 1,
-					title = "<User: YOURNAME> <Channel: ENCKEY>",
+					title = "<Nutzer: YOURNAME> <Kannal: ENCKEY>",
 					titleY = scr_y - 1,
 					doTitle = true,
 					nameDecolor = false,
@@ -1992,7 +1978,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Switched to DarkChat palette.")
+				logadd("*","Zur DarkSRC-Palette gewechselt.")
 				saveSettings()
 			else
 				if not palette[argument[1]] then
@@ -2008,13 +1994,13 @@ commands.palette = function(_argument)
 			argument[1] = argument[1]:lower()
 			local newcol = argument[2]:lower()
 			if not palette[argument[1]] then
-				logadd("*","That's not a valid palette choice.")
+				logadd("*","Das ist keine korrekte Palettenauswahl.")
 			else
 				if not (tocolors[newcol] or colors_strnames[newcol]) then
-					logadd("*","That isn't a valid color code. (0-f)")
+					logadd("*","Kein korrekter Farbcode. (0-f)")
 				else
 					palette[argument[1]] = (tocolors[newcol] or colors_strnames[newcol])
-					logadd("*","Palette changed.",false)
+					logadd("*","Palette gewechselt.",false)
 					saveSettings()
 				end
 			end

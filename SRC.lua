@@ -2067,7 +2067,7 @@ commands.set = function(_argument)
 				logadd("*","'"..arguments[1].."' is set to "..contextualQuote(enchatSettings[arguments[1]],custColorize(enchatSettings[arguments[1]])..textutilsserialize(enchatSettings[arguments[1]]).."&r").." ("..type(enchatSettings[arguments[1]])..")")
 			end
 		else
-			logadd("*","No such setting.")
+			logadd("*","Unbekannte Einstellung.")
 		end
 	end
 	if enchatSettings.useSkynet and (not skynet) then
@@ -2107,9 +2107,9 @@ commands.help = function(cmdname)
 			logadd("*", helpList[cmdname])
 		else
 			if commands[cmdname] then
-				logadd("*", "No help info for that command.")
+				logadd("*", "Befehl hat keine Hilfsinformationen.")
 			else
-				logadd("*", "No such command to get help for.")
+				logadd("*", "Unbekannter Befehl.")
 			end
 		end
 	else
@@ -2154,7 +2154,7 @@ commandAliases = {
 	what = function() 	logadd("*","What indeed.") end,
 	ldd = function()	logadd(nil,"& that's me") end,
 	OrElseYouWill = function()
-		enchatSend("*", "'"..yourName.."&}&r~r' buggered off. (disconnect)")
+		enchatSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet.")
 		error("DIE")
 	end
 }
@@ -2186,7 +2186,7 @@ local parseCommand = function(input)
 			return "exit"
 		end
 	else
-		logadd("*", "No such command.")
+		logadd("*", "Unbekannter Befehl.")
 	end
 end
 
@@ -2206,7 +2206,7 @@ local main = function()
 		termsetTextColor(palette.prompttxt)
 
 		local input = colorRead(nil, mHistory)
-		if textToBlit(input,true):gsub(" ","") ~= "" then -- people who send blank messages in chat programs deserve to die
+		if textToBlit(input,true):gsub(" ","") ~= "" then
 			if checkIfCommand(input) then
 				local res = parseCommand(input)
 				if res == "exit" then
@@ -2214,7 +2214,7 @@ local main = function()
 				end
 			else
 				if enchatSettings.extraNewline then
-					logadd(nil,nil,nil,nil,nil,personalID) -- readability is key
+					logadd(nil,nil,nil,nil,nil,personalID)
 				end
 				enchatSend(yourName, input, {doLog = true})
 			end
@@ -2232,7 +2232,7 @@ end
 
 local handleReceiveMessage = function(user, message, animType, maxFrame, _personalID)
 	if enchatSettings.extraNewline then
-		logadd(nil,nil,nil,nil,nil,_personalID) -- readability is still key
+		logadd(nil,nil,nil,nil,nil,_personalID)
 	end
 	logadd(user, message, animations[animType] and animType or nil, (type(maxFrame) == "number") and maxFrame or nil, nil, _personalID)
 	os.queueEvent("render_enchat")
@@ -2265,14 +2265,14 @@ local handleEvents = function()
 		elseif evt[1] == "chat" and ((not checkRSinput()) or (not enchat.disableChatboxWithRedstone)) then
 			if enchat.useChatbox then
 				if enchatSettings.extraNewline then
-					logadd(nil,nil) -- readability is key
+					logadd(nil,nil)
 				end
 				enchatSend(evt[2], evt[3], {doLog = true})
 			end
-		elseif evt[1] == "chat_message" and ((not checkRSinput()) or (not enchat.disableChatboxWithRedstone)) then -- computronics
+		elseif evt[1] == "chat_message" and ((not checkRSinput()) or (not enchat.disableChatboxWithRedstone)) then
 			if enchat.useChatbox then
 				if enchatSettings.extraNewline then
-					logadd(nil,nil) -- readability is key
+					logadd(nil,nil)
 				end
 				enchatSend(evt[3], evt[4], {doLog = true})
 			end
@@ -2385,7 +2385,7 @@ end
 
 getModem()
 
-enchatSend("*", "'"..yourName.."&}&r~r' has moseyed on over.", {doLog = true, omitPersonalID = true})
+enchatSend("*", "'"..yourName.."&}&r~r' hat sich eingeloggt.", {doLog = true, omitPersonalID = true})
 
 local funky = {
 	main,
@@ -2432,14 +2432,14 @@ if not res then
 	prettyClearScreen(1,scr_y-1)
 	termsetTextColor(colors.white)
 	termsetBackgroundColor(colors.gray)
-	cwrite("There was an error.",2)
-	cfwrite("Report this to &3@LDDestroier#2901&r",3)
-	cwrite("on Discord,",4)
-	cwrite("if you feel like it.",5)
+	cwrite("Kritischer Fehler...",2)
+	cfwrite("Analysiert und Protokolliert...",3)
+	cwrite("Sende Log Bericht an [REDACTED]...",4)
+	cwrite("Senden Fehlgeschlagen",5)
 	termsetCursorPos(1,7)
 	printError(outcome)
 	termsetTextColor(colors.lightGray)
-	cwrite("I'll probably fix it, maybe.",10)
+	cwrite("Derzeit keine Reperatur verfügbar.",10)
 end
 
 termsetCursorPos(1, scr_y)

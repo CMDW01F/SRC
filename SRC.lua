@@ -1,11 +1,11 @@
 local scr_x, scr_y = term.getSize()
 CHATBOX_SAFEMODE = nil
 
--- non-changable settings
+-- Technische Einstellungen [FORTSCHRITTLICH]
 enchat = {
 	connectToSkynet = true,
 	version = 3.0,
-	isBeta = false,
+	isBeta = true,
 	port = 11000,
 	skynetPort = "enchat3-default",
 	url = "https://github.com/CMDW01F/SRC/raw/System/SRC.lua",
@@ -16,20 +16,20 @@ enchat = {
 	disableChatboxWithRedstone = false,
 }
 
--- changable settings
-local enchatSettings = {	-- DEFAULT settings.
-	animDiv = 4,			-- divisor of text animation speed (scrolling from left)
-	doAnimate = true,		-- whether or not to animate text moving from left side of screen
-	reverseScroll = false,	-- whether or not to make scrolling up really scroll down
-	redrawDelay = 0.1,		-- delay between redrawing
-	useSetVisible = false,	-- whether or not to use term.current().setVisible(), which has performance and flickering improvements
-	pageKeySpeed = 8,		-- how far PageUP or PageDOWN should scroll
-	doNotif = true,			-- whether or not to use oveerlay glasses for notifications, if possible
-	doKrazy = true,			-- whether or not to add &k obfuscation
-	useSkynet = true,		-- whether or not to use gollark's Skynet in addition to modem calls
-	extraNewline = true,	-- adds an extra newline after every message since setting to true
-	acceptPictoChat = true,	-- whether or not to allow tablular enchat input, which is what /picto uses
-	noRepeatNames = true,	-- whether or not to display the username in two or more consecutive messages by the same user
+-- Anpassbare Einstellungen
+local enchatSettings = {
+	animDiv = 4,
+	doAnimate = true,
+	reverseScroll = false,
+	redrawDelay = 0.1,
+	useSetVisible = false,
+	pageKeySpeed = 8,
+	doNotif = true,
+	doKrazy = false,
+	useSkynet = true,
+	extraNewline = true,
+	acceptPictoChat = true,
+	noRepeatNames = false,
 }
 
 -- colors for various elements

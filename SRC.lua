@@ -4,7 +4,7 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = true,
-	version = 0.3,
+	version = 0.A.3,
 	isBeta = true,
 	port = 11000,
 	skynetPort = "secured-communication",
@@ -1836,7 +1836,7 @@ commands.palette = function(_argument)
 	else
 		argument = explode(" ",argument)
 		if #argument == 1 then
-			if argument[1]:gsub("%s",""):lower() == "reset" or argument[1]:gsub("%s",""):lower() == "src3" then
+			if argument[1]:gsub("%s",""):lower() == "reset" or argument[1]:gsub("%s",""):lower() == "SRC" then
 				palette = {
 					bg = colors.black,
 					txt = colors.white,
@@ -1861,9 +1861,9 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Du hast deine Palette gereinigt.")
+				logadd("*","Du nutzt jetzt die SRC Palette.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "SRCA" then
+			elseif argument[1]:gsub("%s",""):lower() == "SRC2" then
 				palette = {
 					bg = colors.gray,
 					txt = colors.white,
@@ -1878,7 +1878,7 @@ commands.palette = function(_argument)
 					promptY = 1,
 					chevron = ">",
 					chatlogTop = 1,
-					title = "SecureRadioCom Alternative",
+					title = "SecureRadioCom",
 					doTitle = false,
 					titleY = 1,
 					nameDecolor = false,
@@ -1888,7 +1888,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Auf die SRC Alternativ-Palette umgestiegen.")
+				logadd("*","Du nutzt jetzt die SRC2 Palette.")
 				saveSettings()
 			elseif argument[1]:gsub("%s",""):lower() == "chat.lua" then
 				palette = {
@@ -1915,9 +1915,9 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Gewechselt zu /rom/programs/rednet/chat.lua palette.")
+				logadd("*","DU nutzt jetzt die/rom/programs/rednet/chat.lua Palette.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "Talk" then
+			elseif argument[1]:gsub("%s",""):lower() == "SRC-Talk" then
 				palette = {
 					bg = colors.black,
 					txt = colors.white,
@@ -1942,9 +1942,9 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Zur TalkSRC-Palette gewechselt.")
+				logadd("*","Du nutzt jetzt die SRC-Talk Palette")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "Dark" then
+			elseif argument[1]:gsub("%s",""):lower() == "SRC-Dark" then
 				palette = {
 					bg = colors.black,
 					txt = colors.white,
@@ -1969,7 +1969,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Zur DarkSRC-Palette gewechselt.")
+				logadd("*","Du nutzt jetzt die SRC-Dark Palette.")
 				saveSettings()
 			else
 				if not palette[argument[1]] then

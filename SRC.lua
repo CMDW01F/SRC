@@ -49,7 +49,7 @@ UIconf = {
 	promptY = 1,
 	chevron = ">",
 	chatlogTop = 1,
-	title = "SRC 3",
+	title = "SecuredRadioCom",
 	doTitle = true,
 	titleY = 1,
 	nameDecolor = false,
@@ -708,8 +708,6 @@ local cfwrite = function(text, y)
 	return fwrite(text)
 end
 
--- execution start!
-
 if not checkValidName(yourName) then
 	yourName = nil
 end
@@ -722,7 +720,7 @@ end
 
 if not yourName then
     cfwrite("&8~7Text = &, Hintergrund = ~", scr_y-3)
-	cfwrite("&8~7&{Krazy = &k, Reset = &r", scr_y-2)
+	cfwrite("&8~7&{Krazy = &k, Standard = &r", scr_y-2)
     cfwrite("&7~00~11~22~33~44~55~66&8~77&7~88~99~aa~bb~cc~dd~ee~ff", scr_y-1)
 	yourName = prettyPrompt("BENUTZERNAME", currentY, nil, true)
 	if not checkValidName(yourName) then
@@ -761,11 +759,11 @@ local getAPI = function(apiname, apipath, apiurl, doDoFile, doScroll)
 	apipath = fs.combine(fs.combine(src.dataDir,"api"), apipath)
 	if (not fs.exists(apipath)) then
 		if doScroll then term.scroll(1) end
-		bottomMessage(apiname .. " API not found! Downloading...")
+		bottomMessage(apiname .. " API nicht gefunden! Herunterladen...")
 		local prog = http.get(apiurl)
 		if not prog then
 			if doScroll then term.scroll(1) end
-			bottomMessage("Failed to download " .. apiname .. " API. Abort.")
+			bottomMessage("Download fehlgeschlagen " .. apiname .. " API. Abbruch.")
 			termsetCursorPos(1,1)
 			return
 		end
@@ -780,7 +778,7 @@ local getAPI = function(apiname, apipath, apiurl, doDoFile, doScroll)
 	end
 	if not _ENV[fs.getName(apipath)] then
 		if doScroll then term.scroll(1) end
-		bottomMessage("Failed to load " .. apiname .. " API. Abort.")
+		bottomMessage("Laden fehlgeschlagen " .. apiname .. " API. Abbruch.")
 		termsetCursorPos(1,1)
 		return
 	else
@@ -992,8 +990,8 @@ local pictochat = function(xsize, ysize)
 		termsetCursorPos(1, y)
 		termwrite(("/"):rep(scr_x))
 	end
-	cwrite(" [ENTER] to finish. ", scr_y)
-	cwrite("Push a key to change char.", scr_y-1)
+	cwrite(" [ENTER] zum beenden. ", scr_y)
+	cwrite("Tastendruck, um Zeichen zu wechseln.", scr_y-1)
 
 	local cx, cy = math.floor((scr_x/2)-(xsize/2)), math.floor((scr_y/2)-(ysize/2))
 
@@ -1058,7 +1056,6 @@ local pictochat = function(xsize, ysize)
 					maxWidth  = math.max(maxWidth,  #stringgsub(output[3][y], " +$", ""))
 					minMargin = math.min(minMargin, output[3][y]:find("[^ ]") or math.huge)
 				end
-				--error(minMargin)
 				local croppedOutput = {}
 				local touched = false
 				local crY = 0
@@ -1540,9 +1537,8 @@ commands.about = function()
 	if srcSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd(nil,"SRC "..src.version.." von [REDACTED]")
+	logadd(nil,"SecuredRadioCom von [REDACTED]")
 	logadd(nil,"Gesichertes und Dezentralisiertes Netzwerk")
-	logadd(nil,"SecuredRadioCom")
 	logadd(nil,nil)
 	logadd(nil,"AES Lua Impl. von SquidDev")
 	logadd(nil,"HTTP 'Skynet' von gollark (osmarks)")
@@ -1579,10 +1575,10 @@ commands.colors = function()
 	if srcSettings.extraNewline then
 		logadd(nil,nil)
 	end
-	logadd("*", "&{Color codes: (use & or ~)&}")
+	logadd("*", "&{Farbcodes: (Nutze & oder ~)&}")
 	logadd(nil, " &7~11~22~33~44~55~66~7&87~8&78~99~aa~bb~cc~dd~ee~ff")
-	logadd(nil, " &{Reset text/BG with &r and ~r.&}")
-	logadd(nil, " &{Use &k for krazy text.&}")
+	logadd(nil, " &{Standard mit &r und ~r.&}")
+	logadd(nil, " &{&k for krazy text.&}")
 end
 commands.update = function()
 	local res, message = updatesrc()
@@ -1651,7 +1647,7 @@ commands.list = function()
 		logadd(nil,nil)
 	end
 	if getTableLength(userCryList) == 0 then
-		logadd(nil,"Nobody's there.")
+		logadd(nil,"Niemand ist Online.")
 	else
 		for k,v in pairs(userCryList) do
 			logadd(nil,"+'"..k.."'")
@@ -1699,7 +1695,7 @@ commands.key = function(newKey)
 		if newKey ~= encKey then
 			srcSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet.")
 			setEncKey(newKey)
-			logadd("*", "Key changed to '"..encKey.."&}&r~r'.")
+			logadd("*", "Test gewechselt zu '"..encKey.."&}&r~r'.")
 			srcSend("*", "'"..yourName.."&}&r~r' hat sich eingeloggt.", {omitPersonalID = true})
 		else
 			logadd("*", "Taste bereits zugewiesen")
@@ -1821,7 +1817,7 @@ commands.msg = function(_argument)
 				logadd("*","Nachricht wurde abgelehnt.")
 			else
 				srcSend(yourName, message, {recipient = recipient})
-				logadd("*","to '"..recipient.."': "..message)
+				logadd("*","an '"..recipient.."': "..message)
 			end
 		end
 	end
@@ -1868,7 +1864,7 @@ commands.palette = function(_argument)
 				termclear()
 				logadd("*","Du hast deine Palette gereinigt.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "src2" then
+			elseif argument[1]:gsub("%s",""):lower() == "SRCA" then
 				palette = {
 					bg = colors.gray,
 					txt = colors.white,
@@ -1883,7 +1879,7 @@ commands.palette = function(_argument)
 					promptY = 1,
 					chevron = ">",
 					chatlogTop = 1,
-					title = "SecureRadioCom Alternativ",
+					title = "SecureRadioCom Alternative",
 					doTitle = false,
 					titleY = 1,
 					nameDecolor = false,
@@ -1893,7 +1889,7 @@ commands.palette = function(_argument)
 				}
 				termsetBackgroundColor(palette.bg)
 				termclear()
-				logadd("*","Switched to the old src2 palette.")
+				logadd("*","Auf die SRC Alternativ-Palette umgestiegen.")
 				saveSettings()
 			elseif argument[1]:gsub("%s",""):lower() == "chat.lua" then
 				palette = {
@@ -1922,7 +1918,7 @@ commands.palette = function(_argument)
 				termclear()
 				logadd("*","Gewechselt zu /rom/programs/rednet/chat.lua palette.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "talk" then
+			elseif argument[1]:gsub("%s",""):lower() == "Talk" then
 				palette = {
 					bg = colors.black,
 					txt = colors.white,
@@ -1949,7 +1945,7 @@ commands.palette = function(_argument)
 				termclear()
 				logadd("*","Zur TalkSRC-Palette gewechselt.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "darkchat" then
+			elseif argument[1]:gsub("%s",""):lower() == "Dark" then
 				palette = {
 					bg = colors.black,
 					txt = colors.white,
@@ -2057,10 +2053,10 @@ commands.set = function(_argument)
 					logadd("*","Set '&4"..arguments[1].."&r' to &{"..contextualQuote(newval,textutilsserialize(newval).."&}").." ("..type(newval)..")")
 					saveSettings()
 				else
-					logadd("*","Wrong value type (it's "..type(srcSettings[arguments[1]])..")")
+					logadd("*","Falscher Werttyp (es ist "..type(srcSettings[arguments[1]])..")")
 				end
 			else
-				logadd("*","'"..arguments[1].."' is set to "..contextualQuote(srcSettings[arguments[1]],custColorize(srcSettings[arguments[1]])..textutilsserialize(srcSettings[arguments[1]]).."&r").." ("..type(srcSettings[arguments[1]])..")")
+				logadd("*","'"..arguments[1].."' ist eingestellt auf "..contextualQuote(srcSettings[arguments[1]],custColorize(srcSettings[arguments[1]])..textutilsserialize(srcSettings[arguments[1]]).."&r").." ("..type(srcSettings[arguments[1]])..")")
 			end
 		else
 			logadd("*","Unbekannte Einstellung.")
@@ -2109,7 +2105,7 @@ commands.help = function(cmdname)
 			end
 		end
 	else
-		logadd("*","All commands:")
+		logadd("*","Alle Befehle:")
 		local output = ""
 		for k,v in pairs(commands) do
 			output = output.." "..commandInit..k..","

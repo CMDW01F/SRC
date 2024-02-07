@@ -49,8 +49,8 @@ UIconf = {
 	promptY = 1,
 	chevron = ">",
 	chatlogTop = 1,
-	title = "Enchat 3",
-	doTitle = false,
+	title = "SRC 3",
+	doTitle = true,
 	titleY = 1,
 	nameDecolor = false,
 	centerTitle = true,
@@ -1857,7 +1857,7 @@ commands.palette = function(_argument)
 					chevron = ">",
 					chatlogTop = 1,
 					title = "SecureRadioCom",
-					doTitle = false,
+					doTitle = true,
 					titleY = 1,
 					nameDecolor = false,
 					centerTitle = true,
@@ -1895,10 +1895,6 @@ commands.palette = function(_argument)
 				termclear()
 				logadd("*","Switched to the old Enchat2 palette.")
 				saveSettings()
-			elseif argument[1]:gsub("%s",""):lower() == "enchat1" then
-				logadd("*","We don't talk about that one.")
-			elseif argument[1]:gsub("%s",""):lower() == "enchat4" then
-				logadd("*","Let's leave that to future LDD.")
 			elseif argument[1]:gsub("%s",""):lower() == "chat.lua" then
 				palette = {
 					bg = colors.black,
@@ -1982,7 +1978,7 @@ commands.palette = function(_argument)
 				saveSettings()
 			else
 				if not palette[argument[1]] then
-					logadd("*","There's no such palette option.")
+					logadd("*","Es gibt keine solche Palettenoption.")
 				else
 					logadd("*","'"..argument[1].."' = '"..toblit[palette[argument[1]]].."'")
 				end

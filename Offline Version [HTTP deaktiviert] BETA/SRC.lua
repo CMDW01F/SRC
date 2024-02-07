@@ -4,8 +4,8 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = false,
-	version = "0.A.3",
-	isBeta = false,
+	version = "0.B.3",
+	isBeta = true,
 	port = 11000,
 	skynetPort = "secured-communication",
 	url = "https://github.com/CMDW01F/SRC/raw/System/SRC.lua",

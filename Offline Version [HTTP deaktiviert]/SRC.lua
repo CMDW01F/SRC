@@ -4,12 +4,12 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = false,
-	version = "0.A.3",
+	version = "0.B.3",
 	isBeta = false,
 	port = 11000,
 	skynetPort = "secured-communication",
-	url = "https://github.com/CMDW01F/SRC/raw/System/SRC.lua",
-	betaurl = "https://github.com/CMDW01F/SRC/raw/Beta/SRC.lua",
+	url = "https://github.com/CMDW01F/SRC/raw/System/Offline%20Version%20%5BHTTP%20deaktiviert%5D/SRC.lua",
+	betaurl = "https://raw.githubusercontent.com/CMDW01F/SRC/Beta/Offline%20Version%20%5BHTTP%20deaktiviert%5D%20BETA/SRC.lua",
 	ignoreModem = false,
 	dataDir = "/.src",
 	useChatbox = false,

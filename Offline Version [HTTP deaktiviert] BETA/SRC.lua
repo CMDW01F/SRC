@@ -4,7 +4,7 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = false,
-	version = "0.B.3",
+	version = "0.B.3 BETA",
 	isBeta = true,
 	port = 11000,
 	skynetPort = "secured-communication",

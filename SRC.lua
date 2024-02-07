@@ -2124,30 +2124,6 @@ commandAliases = {
 	tell = commands.msg,
 	whisper = commands.msg,
 	["?"] = commands.help,
-	porn = function() 	logadd("*","Yeah, no.") end,
-	whoareyou = function() 	logadd("*", "I'm src. But surely, you know this?") end,
-	fuck = function() 	logadd("*","A mind is a terrible thing to waste.") end,
-	hello = function() 	logadd("*","Hey.") end,
-	hi = function() 	logadd("*","Hiya.") end,
-	hey = function() 	logadd("*","That's for horses.") end,
-	bye = function() 	logadd("*","You know, you can use /exit.") end,
-	die = function() 	logadd("*","You wish.") end,
-	nap = function() 	logadd("*","The time for napping has passed.") end,
-	sorry = function() 	logadd("*","That's okay.") end,
-	jump = function() 	logadd("*","Sorry. This program is in a NO JUMPING zone.") end,
-	src = function() 	logadd("*","At your service!") end,
-	win = function() 	logadd("*","Naturally!") end,
-	lose = function() 	logadd("*","Preposterous!") end,
-	xyzzy = function() 	logadd("*","A hollow voice says \"Fool.\"") end,
-	wait = function() 	logadd("*","Time passes...") end,
-	stop = function() 	logadd("*","Hammertime!","fadeIn") end,
-	shit = function() 	logadd("*","Man, you're telling me!") end,
-	eat = function() 	logadd("*","You're not hungry.") end,
-	what = function() 	logadd("*","What indeed.") end,
-	ldd = function()	logadd(nil,"& that's me") end,
-	OrElseYouWill = function()
-		srcSend("*", "'"..yourName.."&}&r~r' hat sich abgemeldet.")
-		error("DIE")
 	end
 }
 

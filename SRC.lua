@@ -7,7 +7,7 @@ src = {
 	version = 3.0,
 	isBeta = true,
 	port = 11000,
-	skynetPort = "src",
+	skynetPort = "enchat3-default",
 	url = "https://github.com/CMDW01F/SRC/raw/System/SRC.lua",
 	betaurl = "https://github.com/CMDW01F/SRC/raw/Beta/SRC.lua",
 	ignoreModem = false,
@@ -2339,17 +2339,17 @@ local handleEvents = function()
 					logadd(nil,nil)
 				end
 				if evt[2] == "win" then
-					srcSend("*", yourName .. "&}&r~r beat " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", yourName .. "&}&r~r schlug " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
 				elseif evt[2] == "lose" then
-					srcSend("*", (evt[4] or "Someone") .. "&}&r~r beat " .. yourName .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", (evt[4] or "Someone") .. "&}&r~r schlug " .. yourName .. "&}&r~r in TRON!", {doLog = true})
 				elseif evt[2] == "tie" then
-					srcSend("*", yourName .. "&}&r~r tied with " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
+					srcSend("*", yourName .. "&}&r~r unentschieden mit " .. (evt[4] or "someone") .. "&}&r~r in TRON!", {doLog = true})
 				end
 			elseif evt[2] == "timeout" then
 				if srcSettings.extraNewline then
 					logadd(nil,nil)
 				end
-				srcSend("*", yourName .. "&}&r~r timed out against " .. (evt[4] or "someone") .. "&}&r~r in TRON...", {doLog = true})
+				srcSend("*", yourName .. "&}&r~r verlierte gegen " .. (evt[4] or "someone") .. "&}&r~r in TRON...", {doLog = true})
 			end
 		elseif evt[1] == "terminate" then
 			return "exit"

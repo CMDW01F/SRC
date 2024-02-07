@@ -2124,7 +2124,6 @@ commandAliases = {
 	tell = commands.msg,
 	whisper = commands.msg,
 	["?"] = commands.help,
-	end
 }
 
 local checkIfCommand = function(input)

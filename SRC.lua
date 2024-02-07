@@ -787,11 +787,11 @@ local getAPI = function(apiname, apipath, apiurl, doDoFile, doScroll)
 end
 
 local skynet, aes, bigfont
-aes = getAPI("AES", "aes", "http://pastebin.com/raw/9E5UHiqv", false, false)
+aes = getAPI("AES", "aes", "https://raw.githubusercontent.com/CMDW01F/API/System/System%20API/AES.lua", false, false)
 if src.connectToSkynet and http.websocket then
-	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/CMDW01F/API/System/Netzwerk/SkyNet.lua", true, true)
+	skynet = getAPI("Skynet", "skynet", "https://raw.githubusercontent.com/CMDW01F/API/System/Netzwerk%20API/SkyNet.lua", true, true)
 end
-bigfont = getAPI("BigFont", "bigfont", "https://pastebin.com/raw/3LfWxRWh", false, true)
+bigfont = getAPI("BigFont", "bigfont", "https://raw.githubusercontent.com/CMDW01F/API/System/System%20API/BigFont.lua", false, true)
 
 if encKey and skynet and src.connectToSkynet then
 	bottomMessage("Verbinde mit SkyNet...")

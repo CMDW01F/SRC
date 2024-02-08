@@ -3,6 +3,13 @@ Ein Anpassbares, Verschlüsseltes und Dezentralisiertes Kommunikationsnetzwerk f
 
 ### Installation
 Die Installation ist Simpel und benötigt keine komplizierten Schritte einfach Kopieren, Einfügen, Ausführen
-````shell
+
+Neuste Version für die Online Variante, die SkyNet HTTPCom nutzt
+```shell
+wget 
+```
+
+Neuste Version für die Offline Variante, die nur die AES API und Modem nutzt
+```shell
 wget 
 ```

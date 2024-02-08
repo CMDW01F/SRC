@@ -15,4 +15,3 @@ wget https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/Offline%20V
 
 ### Spezial Version
 Eine speziell angepasste Version die unabhängig von äußeren Einflüssen läuft. Administrator des Servers hat HTTP und WebSockets deaktiviert? Kein Problem! SRC v.1.X.1 wird Manuell heruntergeladen, Importiert und eingerichtet.
-[IN BEARBEITUNG, DIESE VERSION IST DERZEIT NICHT VERFÜGBAR]

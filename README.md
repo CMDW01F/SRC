@@ -4,12 +4,15 @@ Ein Anpassbares, Verschlüsseltes und Dezentralisiertes Kommunikationsnetzwerk f
 ### Installation
 Die Installation ist Simpel und benötigt keine komplizierten Schritte einfach Kopieren, Einfügen, Ausführen
 
-Neuste Version für die Online Variante, die SkyNet HTTPCom nutzt:
+SecureRadioCom [Einfache Version, nutzt SkyNet HTTP]
 ```shell
 wget https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/SkyNet%20Version%20%5BHTTP%20aktiviert%5D/SRC.lua
 ```
-
-Neuste Version für die Offline Variante, die nur die AES API und Modem nutzt:
+Offline SRC [Version die kein SkyNet nutzt, sondern CC:T Modem]
 ```shell
 wget https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/Offline%20Version%20%5BHTTP%20deaktiviert%5D/SRC.lua
 ```
+
+### Spezial Version
+Eine speziell angepasste Version die unabhängig von äußeren Einflüssen läuft. Administrator des Servers hat HTTP und WebSockets deaktiviert? Kein Problem! SRC v.1.X.1 wird Manuell heruntergeladen, Importiert und eingerichtet.
+[IN BEARBEITUNG, DIESE VERSION IST DERZEIT NICHT VERFÜGBAR]

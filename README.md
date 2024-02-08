@@ -4,12 +4,12 @@ Ein Anpassbares, Verschlüsseltes und Dezentralisiertes Kommunikationsnetzwerk f
 ### Installation
 Die Installation ist Simpel und benötigt keine komplizierten Schritte einfach Kopieren, Einfügen, Ausführen
 
-Neuste Version für die Online Variante, die SkyNet HTTPCom nutzt
+Neuste Version für die Online Variante, die SkyNet HTTPCom nutzt:
 ```shell
-wget 
+wget https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/SkyNet%20Version%20%5BHTTP%20aktiviert%5D/SRC.lua
 ```
 
-Neuste Version für die Offline Variante, die nur die AES API und Modem nutzt
+Neuste Version für die Offline Variante, die nur die AES API und Modem nutzt:
 ```shell
-wget 
+wget https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/Offline%20Version%20%5BHTTP%20deaktiviert%5D/SRC.lua
 ```

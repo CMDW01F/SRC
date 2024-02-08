@@ -4,12 +4,12 @@ CHATBOX_SAFEMODE = nil
 -- Technische Einstellungen [FORTSCHRITTLICH]
 src = {
 	connectToSkynet = false,
-	version = "1.B.0",
+	version = "1.X.1",
 	isBeta = false,
 	port = 11000,
 	skynetPort = "secured-communication",
-	url = "https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/Offline%20Version%20%5BHTTP%20deaktiviert%5D/SRC.lua",
-	betaurl = "https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/Beta/Offline%20Version%20%5BHTTP%20deaktiviert%5D%20BETA/SRC.lua",
+	url = "https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/System/%5B%23.X.%23%5D%20Spezial/SRC.lua",
+	betaurl = "https://raw.githubusercontent.com/CMDW01F/SecureRadioCom/Beta/%5B%23.X.%23%5D%20Spezial/SRC.lua",
 	ignoreModem = false,
 	dataDir = "/.src",
 	useChatbox = false,
